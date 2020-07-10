@@ -36,6 +36,14 @@ function loop(){
     ball_x += 5 * ball_x_orientation
     ball_y += 5 * ball_y_orientation
 
+    if(ball_x+10 > w) {
+        p1_points++
+        initBall()
+    }
+    else if(ball_x < 0){
+        p2_points ++
+        initBall()
+    }
 
     if(p1_key == 87 && p1_y > 0){
         p1_y -= 10
@@ -70,12 +78,22 @@ function draw(){
     drawRect(w/2 -5,0,5,h)
     // bola
     drawRect(ball_x, ball_y, 10, 10)
+    writePoints()
 }
 
 function drawRect(x,y,w,h,color="#fff"){
     ctx.fillStyle = color
     ctx.fillRect(x,y,w,h)
     ctx.fillStyle = "#000"
+}
+
+function writePoints(){
+    ctx.font = "50px monospace";
+    ctx.fillStyle = "#fff";
+    // w/4 = 1/4 da tela = metade da tela do player 1
+    ctx.fillText(p1_points, w/4, 50);
+    // 3*(w/4) = 3/4 da tela = metade da tela do player 2
+    ctx.fillText(p2_points, 3*(w/4), 50);
 }
 
 document.addEventListener("keydown",function(ev){
